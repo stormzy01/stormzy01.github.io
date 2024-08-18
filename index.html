@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimum Imperium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Allgemeine Stile */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            color: white;
+            overflow-x: hidden; /* Verhindert horizontales Scrollen */
+            overflow-y: auto; /* Ermöglicht vertikales Scrollen */
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Video-Hintergrund */
+        #video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -2;
+            overflow: hidden;
+            object-fit: cover; /* Verhindert unschöne Ränder */
+        }
+
+        /* Halbtransparente Überlagerung */
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Halbtransparente Überlagerung */
+            z-index: -1;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 15px 10px; /* Reduziertes Padding für kleinere Bildschirme */
+            display: flex;
+            justify-content: center;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        nav a {
+            margin: 0 10px; /* Reduziertes Margin für kleinere Bildschirme */
+            text-decoration: none;
+            color: white;
+            font-size: 16px; /* Reduzierte Schriftgröße für kleinere Bildschirme */
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            color: #ffcc00;
+        }
+
+        /* Hauptinhalt */
+        .content {
+            display: none;
+            padding: 80px 20px 20px; /* Abstand für den fixierten Navbar und Padding */
+            min-height: calc(100vh - 80px); /* Sicherstellt, dass der Inhalt die ganze Höhe einnimmt */
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Zentriert den Inhalt vertikal */
+            flex-direction: column;
+            text-align: center; /* Zentriert den Text */
+            position: relative;
+            z-index: 1;
+            box-sizing: border-box;
+        }
+
+        /* Optimum Imperium Titel */
+        .hero h1 {
+            font-size: 4em; /* Angepasste Schriftgröße für mobile Geräte */
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        /* Textinhalt */
+        .content p {
+            font-size: 1.1em; /* Angepasste Schriftgröße für mobile Geräte */
+            margin: 10px;
+            max-width: 100%; /* Sicherstellt, dass der Text nicht außerhalb des Containers läuft */
+            line-height: 1.6;
+        }
+
+        /* Artists Reiter */
+        .artist-container {
+            margin-top: 20px;
+            max-width: 100%;
+            width: 100%;
+        }
+
+        .artist-container h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .artist-container p {
+            font-size: 1.2em;
+            margin: 5px 0;
+        }
+
+        .artist-category {
+            margin-top: 40px;
+        }
+
+        /* Kontakt Reiter */
+        .contact-info {
+            max-width: 100%;
+            width: 100%;
+            margin: auto; /* Zentriert den Container */
+        }
+
+        .contact-info h1 {
+            font-size: 2em; /* Angepasste Schriftgröße für mobile Geräte */
+            margin-bottom: 20px;
+        }
+
+        .contact-info p {
+            font-size: 1.2em; /* Angepasste Schriftgröße für mobile Geräte */
+            margin: 10px 0;
+        }
+
+        .contact-info a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            nav {
+                padding: 10px;
+                font-size: 16px;
+            }
+
+            nav a {
+                margin: 0 8px;
+            }
+
+            .content {
+                padding-top: 70px; /* Padding anpassen für kleinere Bildschirme */
+            }
+
+            .hero h1 {
+                font-size: 3em; /* Angepasste Schriftgröße für kleinere Bildschirme */
+            }
+
+            .content p {
+                font-size: 1em;
+                margin: 10px;
+            }
+
+            .artist-container {
+                margin-top: 10px;
+                font-size: 0.9em;
+            }
+
+            .artist-container h2 {
+                font-size: 1.2em;
+            }
+
+            .contact-info h1 {
+                font-size: 1.8em;
+            }
+
+            .contact-info p {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Video-Hintergrund -->
+    <video id="video-background" autoplay loop muted>
+        <source src="https://cdn.pixabay.com/video/2022/11/03/137617-767056247_medium.mp4?download" type="video/mp4">
+        Dein Browser unterstützt keine Video-Wiedergabe.
+    </video>
+
+    <!-- Halbtransparente Überlagerung -->
+    <div id="overlay"></div>
+
+    <nav>
+        <a id="nav-home">Start</a>
+        <a id="nav-ueber-uns">Über uns</a>
+        <a id="nav-ghostwriter">Ghostwriter</a>
+        <a id="nav-artists">Artists</a>
+        <a id="nav-kontakt">Kontakt</a> <!-- Neuer Reiter Kontakt -->
+    </nav>
+
+    <!-- Startseite -->
+    <div id="home" class="content hero">
+        <h1>OPTIMUM IMPERIUM</h1>
+    </div>
+
+    <!-- Über uns Seite -->
+    <div id="ueber-uns" class="content">
+        <h1>Über uns</h1>
+        <p>
+            Wir bei Optimum Imperium sind leidenschaftliche Musiker, entschlossen, unsere Vision durch unsere Musik zu verwirklichen. 
+            Wir streben danach, stets das Beste aus uns herauszuholen und sind immer auf der Suche nach neuen kreativen Möglichkeiten. 
+            Wenn du ein Musiker oder Produzent bist, der unsere Leidenschaft teilt, würden wir uns freuen, mit dir in Kontakt zu treten und 
+            gemeinsam etwas Großartiges zu erschaffen.
+        </p>
+        <p>
+            Zusätzlich bieten wir einen professionellen Ghostwriting-Service an, um dir bei deinen Projekten zu helfen. 
+            Weitere Informationen dazu findest du im Ghostwriter-Reiter.
+        </p>
+    </div>
+
+    <!-- Ghostwriter Seite -->
+    <div id="ghostwriter" class="content">
+        <h1>Ghostwriter</h1>
+        <p>
+            Unser Ghostwriting-Service bietet dir die Möglichkeit, von professionellen Lyrikern Unterstützung zu erhalten. 
+            Wir haben bereits für zahlreiche Musiker erfolgreich Texte verfasst und stehen auch dir gerne zur Verfügung.
+        </p>
+        <p>
+            Um unseren Ghostwriting-Service zu nutzen, kannst du uns einfach eine E-Mail an <strong>optimum-imperium@web.de</strong> senden. 
+            Verwende im Betreff bitte <em>Ghostwriter Service</em>, damit wir deine Anfrage schnellstmöglich bearbeiten können. 
+            In deiner E-Mail kannst du uns mitteilen, welche Art von Unterstützung du benötigst, und wir werden uns so schnell wie möglich bei dir melden.
+        </p>
+        <p>
+            Wir garantieren absolute Diskretion, und deine Identität bleibt jederzeit anonym. Nutze die Gelegenheit, um mit uns in Kontakt zu treten und 
+            mehr über unseren Service zu erfahren.
+        </p>
+    </div>
+
+    <!-- Artists Seite -->
+    <div id="artists" class="content">
+        <h1>Artists</h1>
+        <div class="artist-container">
+            <h2>SN</h2>
+            <p>CEO @snmusikofficial</p>
+
+            <h2>justchase</h2>
+            <p>Ghostwriter</p>
+
+            <h2>Stormzy01</h2>
+            <p>Ghostwriter</p>
+
+            <div class="artist-category">
+                <h2>PAYD4Y BEATS</h2>
+                <p>Beatproduzent</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kontakt Seite -->
+    <div id="kontakt" class="content contact-info">
+        <h1>Kontakt</h1>
+        <p>Instagram: <a href="https://instagram.com/snmusikofficial" target="_blank">@snmusikofficial</a></p>
+        <p>Spotify: <a href="https://open.spotify.com/intl-de/artist/6whfrVpRkgMABBdID6MlKr">SN</a></p>
+    </div>
+
+    <script>
+        // JavaScript zum Wechseln zwischen den Seiten
+        const sections = document.querySelectorAll('.content');
+        const navLinks = document.querySelectorAll('nav a');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                // Alle Sektionen ausblenden
+                sections.forEach(section => section.style.display = 'none');
+
+                // Zeige die geklickte Sektion
+                const targetId = this.id.replace('nav-', '');
+                document.getElementById(targetId).style.display = 'flex';
+            });
+        });
+
+        // Standardmäßig Startseite anzeigen
+        document.getElementById('home').style.display = 'flex';
+    </script>
+</body>
+</html>
