@@ -30,6 +30,7 @@
             z-index: -2;
             overflow: hidden;
             object-fit: cover; /* Verhindert unschöne Ränder */
+            pointer-events: none; /* Deaktiviert Benutzerinteraktionen auf dem Video */
         }
 
         /* Halbtransparente Überlagerung */
@@ -189,8 +190,8 @@
 <body>
 
     <!-- Video-Hintergrund -->
-    <video id="video-background" autoplay loop muted>
-        <source src="https://cdn.pixabay.com/video/2022/11/03/137617-767056247_medium.mp4?download" type="video/mp4">
+    <video id="video-background" autoplay loop muted playsinline>
+        <source src="https://cdn.pixabay.com/video/2022/11/03/137617-767056247_medium.mp4" type="video/mp4">
         Dein Browser unterstützt keine Video-Wiedergabe.
     </video>
 
@@ -283,11 +284,15 @@
                 // Zeige die geklickte Sektion
                 const targetId = this.id.replace('nav-', '');
                 document.getElementById(targetId).style.display = 'flex';
+
+                // Stelle sicher, dass gescrollt werden kann
+                document.body.style.overflowY = 'auto';
             });
         });
 
         // Standardmäßig Startseite anzeigen
         document.getElementById('home').style.display = 'flex';
+
     </script>
 </body>
 </html>
